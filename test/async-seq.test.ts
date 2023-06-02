@@ -1,3 +1,4 @@
+import { abortable } from "@wopjs/disposable";
 import { it, expect, vi } from "vitest";
 import { seq } from "../src/async-seq";
 
@@ -113,4 +114,21 @@ it("should simulate debounce", async () => {
   expect(spy).toBeCalledTimes(1);
   await s.dispose();
   expect(spy).toBeCalledTimes(1);
+});
+
+it("should work with abortable", async () => {
+  const s = seq();
+  const spy = vi.fn();
+  const disposer = abortable(spy);
+  s.add(() => abortable(spy));
+
+  expect(spy).toHaveBeenCalledTimes(0);
+
+  disposer();
+
+  expect(spy).toHaveBeenCalledTimes(1);
+
+  s.dispose();
+
+  expect(spy).toHaveBeenCalledTimes(1);
 });

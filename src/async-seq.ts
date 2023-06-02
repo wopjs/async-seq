@@ -1,4 +1,4 @@
-import { tryCall } from "./utils";
+import { isAbortable, tryCall } from "./utils";
 
 /**
  * Execute task. Optionally returns a disposer function that cleans up side effects.
@@ -94,7 +94,15 @@ export class AsyncSeq {
       if (this.disposer_) {
         await tryCall(this.disposer_);
       }
-      this.disposer_ = await tryCall(fn);
+      const disposer = await tryCall(fn);
+      this.disposer_ = disposer;
+      if (isAbortable(disposer)) {
+        disposer.abortable(() => {
+          if (this.disposer_ === disposer) {
+            this.disposer_ = null;
+          }
+        });
+      }
       this.fns_.shift();
     }
 

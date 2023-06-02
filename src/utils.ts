@@ -7,3 +7,14 @@ export const tryCall = async <T>(
     console.error(e);
   }
 };
+
+interface AbortableDisposable {
+  (): any;
+  dispose: (this: void) => any;
+  abortable: (onDispose?: () => void) => void;
+}
+
+/** @see{@wopjs/disposable} */
+export const isAbortable = (
+  disposable: any
+): disposable is AbortableDisposable => disposable && disposable.abortable;
