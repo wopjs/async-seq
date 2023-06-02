@@ -18,6 +18,40 @@ Run async functions in sequence.
 npm add @wopjs/async-seq
 ```
 
+## Examples
+
+```ts
+import { seq } from "@wopjs/async-seq";
+
+const s = seq();
+await s.add(
+  () => {
+    const ticket = setTimeout(spy, 100);
+    return () => clearTimeout(ticket);
+  },
+  async () => {
+    const data = await fetch("https://example.com").then(r => r.json());
+    console.log(data);
+  }
+);
+
+s.dispose();
+```
+
+Simulate debounce:
+
+```ts
+const task = () => console.log("task");
+
+const s = seq({ window: 1, dropHead: true });
+for (let i = 0; i < 10; i++) {
+  await s.add(() => {
+    const ticket = setTimeout(task, 100);
+    return () => clearTimeout(ticket);
+  });
+}
+```
+
 ## License
 
 MIT @ [wopjs](https://github.com/wopjs)

@@ -2,5 +2,7 @@
   "run_": "_r",
   "fns_": "_f",
   "pRunning_": "_p",
-  "disposer_": "_d"
+  "disposer_": "_d",
+  "window_": "_w",
+  "dropHead_": "_h"
 }
