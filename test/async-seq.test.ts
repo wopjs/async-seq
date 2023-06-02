@@ -11,12 +11,12 @@ it("should run tasks in sequence", async () => {
   const p = s.add(...spies);
   expect(s.size).toBe(spies.length);
   expect(s.full).toBe(false);
-  expect(s.pending).toBe(true);
+  expect(s.running).toBe(true);
 
   await p;
   expect(s.size).toBe(0);
   expect(s.full).toBe(false);
-  expect(s.pending).toBe(false);
+  expect(s.running).toBe(false);
 
   for (const spy of spies) {
     expect(spy).toBeCalledTimes(1);
@@ -41,12 +41,12 @@ it("should drop item from the tail if the sequence is full", async () => {
   const p = s.add(...spies);
   expect(s.size).toBe(window);
   expect(s.full).toBe(true);
-  expect(s.pending).toBe(true);
+  expect(s.running).toBe(true);
 
   await p;
   expect(s.size).toBe(0);
   expect(s.full).toBe(false);
-  expect(s.pending).toBe(false);
+  expect(s.running).toBe(false);
 
   for (const [i, spy] of spies.entries()) {
     expect(spy).toBeCalledTimes(i < window ? 1 : 0);

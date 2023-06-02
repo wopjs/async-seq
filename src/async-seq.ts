@@ -40,18 +40,31 @@ export class AsyncSeq {
     this.dropHead_ = options?.dropHead ?? false;
   }
 
-  public get pending(): boolean {
+  /**
+   * Is sequence running.
+   */
+  public get running(): boolean {
     return !!this.pRunning_;
   }
 
+  /**
+   * Size of pending tasks in the sequence.
+   */
   public get size(): number {
     return this.fns_.length;
   }
 
+  /**
+   * Is sequence full.
+   */
   public get full(): boolean {
     return this.size >= this.window_;
   }
 
+  /**
+   * Add task executors to the sequence.
+   * @param fns Task executors. Optionally returns a disposer function that cleans up side effects.
+   */
   public async add(...fns: AsyncSeqFn[]): Promise<void> {
     this.fns_.push(...fns);
     const diff = this.fns_.length - this.window_;
@@ -64,6 +77,9 @@ export class AsyncSeq {
     await this.pRunning_;
   }
 
+  /**
+   * Dispose the sequence.
+   */
   public async dispose(): Promise<void> {
     this.fns_.length = 0;
     await this.pRunning_;
