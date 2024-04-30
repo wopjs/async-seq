@@ -98,18 +98,24 @@ export class AsyncSeq {
     let fn: AsyncSeqFn | undefined;
     while ((fn = this.#fns[0])) {
       if (this.#disposer) {
-        await tryCall(this.#disposer);
+        tryCall(this.#disposer);
+        this.#disposer = null;
       }
       const disposer = await tryCall(fn);
-      this.#disposer = disposer;
-      if (isAbortable(disposer)) {
-        disposer.abortable(() => {
-          if (this.#disposer === disposer) {
-            this.#disposer = null;
-          }
-        });
+      if (fn === this.#fns[0]) {
+        this.#disposer = disposer;
+        if (isAbortable(disposer)) {
+          disposer.abortable(() => {
+            if (this.#disposer === disposer) {
+              this.#disposer = null;
+            }
+          });
+        }
+        this.#fns.shift();
+      } else {
+        // stale task
+        disposer?.();
       }
-      this.#fns.shift();
     }
     this.#pRunning = null;
   }

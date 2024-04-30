@@ -61,6 +61,57 @@ it("should drop item from the tail if the sequence is full", async () => {
   }
 });
 
+it("should drop item from the tail when adding to a sequence", async () => {
+  const window = 3;
+  const s = seq({ window });
+
+  const disposers2 = Array.from({ length: 10 }).map(() => vi.fn());
+  const spies2 = Array.from({ length: 10 }).map((_, i) =>
+    vi.fn(async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return disposers2[i];
+    })
+  );
+
+  const disposers1 = Array.from({ length: 3 }).map(() => vi.fn());
+  const spies1 = Array.from({ length: 3 }).map((_, i) =>
+    vi.fn(async () => {
+      if (i === 1) {
+        s.add(...spies2);
+      }
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return disposers1[i];
+    })
+  );
+
+  const p = s.add(...spies1);
+  expect(s.size).toBe(window);
+  expect(s.full).toBe(true);
+  expect(s.running).toBe(true);
+
+  await p;
+  expect(s.size).toBe(0);
+  expect(s.full).toBe(false);
+  expect(s.running).toBe(false);
+
+  for (const [i, spy] of spies1.entries()) {
+    expect(spy, `spy${i}`).toBeCalledTimes(1);
+  }
+
+  for (const [i, disposer] of disposers1.entries()) {
+    expect(disposer, `disposer${i}`).toBeCalledTimes(1);
+  }
+
+  for (const [i, spy] of spies2.entries()) {
+    expect(spy, `spy${i}`).toBeCalledTimes(i === 0 ? 1 : 0);
+  }
+
+  await s.dispose();
+  for (const [i, disposer] of disposers2.entries()) {
+    expect(disposer, `disposer${i}`).toBeCalledTimes(i === 0 ? 1 : 0);
+  }
+});
+
 it("should wait for the sequence to finish", async () => {
   const s = seq();
   const spy = vi.fn(async () => {
@@ -94,6 +145,65 @@ it("should drop item from the head if the sequence is full", async () => {
   await s.dispose();
   for (const [i, disposer] of disposers.entries()) {
     expect(disposer).toBeCalledTimes(i >= spies.length - window ? 1 : 0);
+  }
+});
+
+it("should drop item from the head when adding to a sequence", async () => {
+  const window = 3;
+  const s = seq({ window, dropHead: true });
+  const disposers2 = Array.from({ length: 10 }).map(() => vi.fn());
+  const spies2 = Array.from({ length: 10 }).map((_, i) =>
+    vi.fn(async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return disposers2[i];
+    })
+  );
+  const disposers1 = Array.from({ length: 3 }).map(() => vi.fn());
+  const spies1 = Array.from({ length: 3 }).map((_, i) =>
+    vi.fn(async () => {
+      if (i === 1) {
+        s.add(...spies2);
+      }
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return disposers1[i];
+    })
+  );
+
+  const p = s.add(...spies1);
+  expect(s.size).toBe(window);
+  expect(s.full).toBe(true);
+  expect(s.running).toBe(true);
+
+  await p;
+  expect(s.size).toBe(0);
+  expect(s.full).toBe(false);
+  expect(s.running).toBe(false);
+
+  for (const [i, spy] of spies1.entries()) {
+    expect(spy, `spy${i} of 0-${spies1.length - 1}`).toBeCalledTimes(
+      i <= 1 ? 1 : 0
+    );
+  }
+
+  for (const [i, disposer] of disposers1.entries()) {
+    expect(
+      disposer,
+      `disposer${i} of 0-${disposers1.length - 1}`
+    ).toBeCalledTimes(i <= 1 ? 1 : 0);
+  }
+
+  for (const [i, spy] of spies2.entries()) {
+    expect(spy, `spy${i} of 0-${spies2.length - 1}`).toBeCalledTimes(
+      i >= spies2.length - 3 ? 1 : 0
+    );
+  }
+
+  await s.dispose();
+  for (const [i, disposer] of disposers2.entries()) {
+    expect(
+      disposer,
+      `disposer${i} of 0-${disposers2.length - 1}`
+    ).toBeCalledTimes(i >= spies2.length - 3 ? 1 : 0);
   }
 });
 
