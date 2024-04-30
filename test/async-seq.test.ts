@@ -61,6 +61,20 @@ it("should drop item from the tail if the sequence is full", async () => {
   }
 });
 
+it("should wait for the sequence to finish", async () => {
+  const s = seq();
+  const spy = vi.fn(async () => {
+    await new Promise(resolve => setTimeout(resolve, 100));
+  });
+  s.add(spy);
+  expect(s.running).toBe(true);
+  await s.wait();
+  expect(s.running).toBe(false);
+  expect(spy).toBeCalledTimes(1);
+  await s.dispose();
+  expect(spy).toBeCalledTimes(1);
+});
+
 it("should drop item from the head if the sequence is full", async () => {
   const window = 3;
   const s = seq({ window, dropHead: true });
