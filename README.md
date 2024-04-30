@@ -10,7 +10,9 @@
 [![tree-shakable](https://img.shields.io/badge/tree-shakable-success)](https://bundlejs.com/?q=@wopjs/async-seq)
 [![side-effect-free](https://img.shields.io/badge/side--effect-free-success)](https://bundlejs.com/?q=@wopjs/async-seq)
 
-Run async functions in sequence.
+Run async functions one-by-one in a sequence.
+
+Docs: <https://wopjs.github.io/async-seq/>
 
 ## Install
 
@@ -24,6 +26,8 @@ npm add @wopjs/async-seq
 import { seq } from "@wopjs/async-seq";
 
 const s = seq();
+
+// add async functions to the sequence and wait for the sequence to finish
 await s.add(
   () => {
     const ticket = setTimeout(spy, 100);
@@ -35,20 +39,32 @@ await s.add(
   }
 );
 
+// or manually wait for the sequence to finish
+await s.wait();
+
+// cancel all tasks
 s.dispose();
 ```
+
+By default the sequence has unlimited size. You can limit the size of the sequence by passing the `window` option.
+Together with the `dropHead` option you can control the behavior of the sequence when it reaches its limit.
 
 Simulate debounce:
 
 ```ts
-const task = () => console.log("task");
+const debounce = (task: () => void, ms: number) => {
+  const s = seq({ window: 1, dropHead: true });
+  return () =>
+    s.add(() => {
+      const ticket = setTimeout(task, ms);
+      return () => clearTimeout(ticket);
+    });
+};
 
-const s = seq({ window: 1, dropHead: true });
+const debounced = debounce(() => console.log("task"), 100);
+
 for (let i = 0; i < 10; i++) {
-  await s.add(() => {
-    const ticket = setTimeout(task, 100);
-    return () => clearTimeout(ticket);
-  });
+  debounced();
 }
 ```
 
