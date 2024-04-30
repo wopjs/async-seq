@@ -17,8 +17,8 @@ export interface AsyncSeqOptions {
    */
   window?: number;
   /**
-   * New tasks are added to the sequence tail. By default they are dropped if the sequence is full.
-   * Set this to `true` to drop old tasks from sequence head instead.
+   * New pending tasks are added to the sequence tail. By default they are dropped if the sequence is full.
+   * Set this to `true` to drop old pending tasks from sequence head instead.
    */
   dropHead?: boolean;
 }
