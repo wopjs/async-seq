@@ -6,7 +6,26 @@
     "source.fixAll": "explicit",
     "source.addMissingImports": "explicit"
   },
-  "eslint.validate": ["javascript", "javascriptreact", "html", "vue", "svelte"],
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "svelte",
+    "markdown"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "svelte",
+    "markdown"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "[html]": {
     "editor.formatOnSave": true,
