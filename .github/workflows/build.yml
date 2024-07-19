@@ -19,7 +19,6 @@ jobs:
       - name: Install Node.js 🚀
         uses: actions/setup-node@v4
         with:
-          node-version: 20
           cache: "pnpm"
 
       - name: Install dependencies 📦
@@ -35,7 +34,7 @@ jobs:
         run: pnpm run build
 
       - name: Upload Coverage
-        uses: paambaati/codeclimate-action@v5.0.0
+        uses: paambaati/codeclimate-action@v8
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
@@ -46,7 +45,7 @@ jobs:
           pnpm run docs
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs
