@@ -6,43 +6,40 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Install pnpm 📦
-        uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          run_install: false
-
-      - name: Install Node.js 🚀
-        uses: actions/setup-node@v4
-        with:
-          cache: "pnpm"
+          node-version: lts/*
+          cache: npm
 
       - name: Install dependencies 📦
-        run: pnpm install
+        run: npm ci
+        env:
+          npm_config_audit: "false"
+          npm_config_fund: "false"
+          npm_config_loglevel: "error"
 
       - name: Lint 🧹
-        run: pnpm run lint
-
-      - name: Test 🧪
-        run: pnpm run coverage
+        run: |
+          npm run lint
+          npm run ts-check
 
       - name: Build 🔧
-        run: pnpm run build
+        run: npm run build
 
-      - name: Upload Coverage
-        uses: paambaati/codeclimate-action@v8
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      - name: Test 🧪
+        run: npm run test:ci
+
+      - name: Coveralls 🎉
+        uses: coverallsapp/github-action@v2
         with:
-          coverageLocations: ${{github.workspace}}/coverage/clover.xml:clover
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docs 📖
-        run: |
-          pnpm run docs
+        run: npm run docs
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

@@ -4,42 +4,31 @@ import { isAbortable, tryCall } from "./utils";
  * Execute task. Optionally returns a disposer function that cleans up side effects.
  */
 export interface AsyncSeqFn {
-  ():
-    | void
-    | Promise<void>
-    | (() => unknown | Promise<unknown>)
-    | Promise<() => unknown | Promise<unknown>>;
+  (): (() => Promise<unknown> | unknown) | Promise<() => Promise<unknown> | unknown> | Promise<void> | void;
 }
 
 export interface AsyncSeqOptions {
-  /**
-   * Max size of the sequence. Default unlimited.
-   */
-  window?: number;
   /**
    * New pending tasks are added to the sequence tail. By default they are dropped if the sequence is full.
    * Set this to `true` to drop old pending tasks from sequence head instead.
    */
   dropHead?: boolean;
+  /**
+   * Max size of the sequence. Default Infinity.
+   */
+  window?: number;
 }
 
 /**
  * Run async functions in sequence.
  */
 export class AsyncSeq {
-  readonly #window: number;
-  readonly #dropHead: boolean;
-
-  readonly #fns: AsyncSeqFn[];
-  #pRunning?: Promise<void> | null;
-  #disposer?: (() => any | Promise<any>) | null | void;
-
-  public constructor(options?: AsyncSeqOptions) {
-    this.#fns = [];
-    this.#window = options?.window ?? Infinity;
-    this.#dropHead = options?.dropHead ?? false;
+  /**
+   * Is sequence full.
+   */
+  public get full(): boolean {
+    return this.size >= this.#window;
   }
-
   /**
    * Is sequence running.
    */
@@ -53,12 +42,19 @@ export class AsyncSeq {
   public get size(): number {
     return this.#fns.length;
   }
+  #disposer?: (() => any | Promise<any>) | null | void;
+  readonly #dropHead: boolean;
 
-  /**
-   * Is sequence full.
-   */
-  public get full(): boolean {
-    return this.size >= this.#window;
+  readonly #fns: AsyncSeqFn[];
+
+  #pRunning?: null | Promise<void>;
+
+  readonly #window: number;
+
+  public constructor(options?: AsyncSeqOptions) {
+    this.#fns = [];
+    this.#window = options?.window ?? Infinity;
+    this.#dropHead = options?.dropHead ?? false;
   }
 
   /**
@@ -76,13 +72,6 @@ export class AsyncSeq {
   }
 
   /**
-   * Wait for the sequence to finish.
-   */
-  public async wait(): Promise<void> {
-    await this.#pRunning;
-  }
-
-  /**
    * Dispose the sequence.
    */
   public async dispose(): Promise<void> {
@@ -92,6 +81,13 @@ export class AsyncSeq {
       await tryCall(this.#disposer);
       this.#disposer = null;
     }
+  }
+
+  /**
+   * Wait for the sequence to finish.
+   */
+  public async wait(): Promise<void> {
+    await this.#pRunning;
   }
 
   async #run(): Promise<void> {

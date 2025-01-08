@@ -1,5 +1,6 @@
 import { abortable } from "@wopjs/disposable";
-import { it, expect, vi } from "vitest";
+import { expect, it, vi } from "vitest";
+
 import { seq } from "../src/async-seq";
 
 it("should run tasks in sequence", async () => {
@@ -70,7 +71,7 @@ it("should drop item from the tail when adding to a sequence", async () => {
     vi.fn(async () => {
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers2[i];
-    })
+    }),
   );
 
   const disposers1 = Array.from({ length: 3 }).map(() => vi.fn());
@@ -81,7 +82,7 @@ it("should drop item from the tail when adding to a sequence", async () => {
       }
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers1[i];
-    })
+    }),
   );
 
   const p = s.add(...spies1);
@@ -128,7 +129,7 @@ it("should wait for the sequence to finish", async () => {
 
 it("should drop item from the head if the sequence is full", async () => {
   const window = 3;
-  const s = seq({ window, dropHead: true });
+  const s = seq({ dropHead: true, window });
   const disposers = Array(10)
     .fill(0)
     .map(() => vi.fn());
@@ -138,9 +139,7 @@ it("should drop item from the head if the sequence is full", async () => {
     expect(spy).toBeCalledTimes(i >= spies.length - window ? 1 : 0);
   }
   for (const [i, disposer] of disposers.entries()) {
-    expect(disposer).toBeCalledTimes(
-      i >= spies.length - window && i < spies.length - 1 ? 1 : 0
-    );
+    expect(disposer).toBeCalledTimes(i >= spies.length - window && i < spies.length - 1 ? 1 : 0);
   }
   await s.dispose();
   for (const [i, disposer] of disposers.entries()) {
@@ -150,13 +149,13 @@ it("should drop item from the head if the sequence is full", async () => {
 
 it("should drop item from the head when adding to a sequence", async () => {
   const window = 3;
-  const s = seq({ window, dropHead: true });
+  const s = seq({ dropHead: true, window });
   const disposers2 = Array.from({ length: 10 }).map(() => vi.fn());
   const spies2 = Array.from({ length: 10 }).map((_, i) =>
     vi.fn(async () => {
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers2[i];
-    })
+    }),
   );
   const disposers1 = Array.from({ length: 3 }).map(() => vi.fn());
   const spies1 = Array.from({ length: 3 }).map((_, i) =>
@@ -166,7 +165,7 @@ it("should drop item from the head when adding to a sequence", async () => {
       }
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers1[i];
-    })
+    }),
   );
 
   const p = s.add(...spies1);
@@ -180,37 +179,25 @@ it("should drop item from the head when adding to a sequence", async () => {
   expect(s.running).toBe(false);
 
   for (const [i, spy] of spies1.entries()) {
-    expect(spy, `spy${i} of 0-${spies1.length - 1}`).toBeCalledTimes(
-      i <= 1 ? 1 : 0
-    );
+    expect(spy, `spy${i} of 0-${spies1.length - 1}`).toBeCalledTimes(i <= 1 ? 1 : 0);
   }
 
   for (const [i, disposer] of disposers1.entries()) {
-    expect(
-      disposer,
-      `disposer${i} of 0-${disposers1.length - 1}`
-    ).toBeCalledTimes(i <= 1 ? 1 : 0);
+    expect(disposer, `disposer${i} of 0-${disposers1.length - 1}`).toBeCalledTimes(i <= 1 ? 1 : 0);
   }
 
   for (const [i, spy] of spies2.entries()) {
-    expect(spy, `spy${i} of 0-${spies2.length - 1}`).toBeCalledTimes(
-      i >= spies2.length - 3 ? 1 : 0
-    );
+    expect(spy, `spy${i} of 0-${spies2.length - 1}`).toBeCalledTimes(i >= spies2.length - 3 ? 1 : 0);
   }
 
   await s.dispose();
   for (const [i, disposer] of disposers2.entries()) {
-    expect(
-      disposer,
-      `disposer${i} of 0-${disposers2.length - 1}`
-    ).toBeCalledTimes(i >= spies2.length - 3 ? 1 : 0);
+    expect(disposer, `disposer${i} of 0-${disposers2.length - 1}`).toBeCalledTimes(i >= spies2.length - 3 ? 1 : 0);
   }
 });
 
 it("should catch error in tasks", async () => {
-  const spy = vi
-    .spyOn(globalThis.console, "error")
-    .mockImplementation(() => void 0);
+  const spy = vi.spyOn(globalThis.console, "error").mockImplementation(() => void 0);
   const error = new Error();
 
   const s = seq();
@@ -225,7 +212,7 @@ it("should catch error in tasks", async () => {
 });
 
 it("should simulate debounce", async () => {
-  const s = seq({ window: 1, dropHead: true });
+  const s = seq({ dropHead: true, window: 1 });
   const spy = vi.fn();
   for (let i = 0; i < 10; i++) {
     await s.add(() => {

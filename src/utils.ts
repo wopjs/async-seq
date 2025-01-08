@@ -1,6 +1,4 @@
-export const tryCall = async <T>(
-  fn: () => T | Promise<T>
-): Promise<T | undefined> => {
+export const tryCall = async <T>(fn: () => Promise<T> | T): Promise<T | undefined> => {
   try {
     return await fn();
   } catch (e) {
@@ -10,11 +8,9 @@ export const tryCall = async <T>(
 
 interface AbortableDisposable {
   (): any;
-  dispose: (this: void) => any;
   abortable: (onDispose?: () => void) => void;
+  dispose: (this: void) => any;
 }
 
 /** @see{@wopjs/disposable} */
-export const isAbortable = (
-  disposable: any
-): disposable is AbortableDisposable => disposable && disposable.abortable;
+export const isAbortable = (disposable: any): disposable is AbortableDisposable => disposable && disposable.abortable;
