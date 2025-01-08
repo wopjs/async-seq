@@ -1,72 +1,216 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@wopjs/async-seq - v0.1.0</title><meta name="description" content="Documentation for @wopjs/async-seq - v0.1.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><link rel="stylesheet" href="assets/custom.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
-<div class="tsd-toolbar-contents container">
-<div class="table-cell" id="tsd-search" data-base=".">
-<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
-<div class="field">
-<div id="tsd-toolbar-links"></div></div>
-<ul class="results">
-<li class="state loading">Preparing search index...</li>
-<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@wopjs/async-seq - v0.1.0</a></div>
-<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
-<div class="container container-main">
-<div class="col-8 col-content">
-<div class="tsd-page-title">
-<h2>@wopjs/async-seq - v0.1.0</h2></div>
-<div class="tsd-panel tsd-typography">
-<a href="#wopjsasync-seq" id="wopjsasync-seq" style="color: inherit; text-decoration: none;">
-  <h1>@wopjs/async-seq</h1>
-</a>
-<p><a href="https://wopjs.github.io/async-seq"><img src="https://img.shields.io/badge/Docs-read-%23fdf9f5" alt="Docs"></a>
-<a href="https://github.com/wopjs/async-seq/actions/workflows/build.yml"><img src="https://github.com/wopjs/async-seq/actions/workflows/build.yml/badge.svg" alt="Build Status"></a>
-<a href="https://codeclimate.com/github/wopjs/async-seq"><img src="https://img.shields.io/codeclimate/coverage/wopjs/async-seq" alt="Coverage Status"></a></p>
-<p><a href="https://www.npmjs.com/package/@wopjs/async-seq"><img src="https://img.shields.io/npm/v/@wopjs/async-seq.svg" alt="npm-version"></a>
-<a href="https://bundlephobia.com/package/@wopjs/async-seq"><img src="https://img.shields.io/bundlephobia/minzip/@wopjs/async-seq" alt="minified-size"></a>
-<a href="https://bundlejs.com/?q=@wopjs/async-seq"><img src="https://img.shields.io/badge/dependencies-none-success" alt="no-dependencies"></a>
-<a href="https://bundlejs.com/?q=@wopjs/async-seq"><img src="https://img.shields.io/badge/tree-shakable-success" alt="tree-shakable"></a>
-<a href="https://bundlejs.com/?q=@wopjs/async-seq"><img src="https://img.shields.io/badge/side--effect-free-success" alt="side-effect-free"></a></p>
-<p>Run async functions one-by-one in a sequence.</p>
-<p>Docs: <a href="https://wopjs.github.io/async-seq/">https://wopjs.github.io/async-seq/</a></p>
+<!doctype html>
+<html class="default" lang="en" data-base=".">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <title>@wopjs/async-seq - v0.1.0</title>
+    <meta name="description" content="Documentation for @wopjs/async-seq" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/highlight.css" />
+    <link rel="stylesheet" href="assets/custom.css" />
+    <script defer src="assets/main.js"></script>
+    <script async src="assets/icons.js" id="tsd-icons-script"></script>
+    <script async src="assets/search.js" id="tsd-search-script"></script>
+    <script async src="assets/navigation.js" id="tsd-nav-script"></script>
+  </head>
+  <body>
+    <script>
+      document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";
+      document.body.style.display = "none";
+      setTimeout(() => (app ? app.showPage() : document.body.style.removeProperty("display")), 500);
+    </script>
+    <header class="tsd-page-toolbar">
+      <div class="tsd-toolbar-contents container">
+        <div class="table-cell" id="tsd-search">
+          <div class="field">
+            <label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"
+              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <use href="assets/icons.svg#icon-search"></use></svg></label
+            ><input type="text" id="tsd-search-field" aria-label="Search" />
+          </div>
+          <div class="field"><div id="tsd-toolbar-links"></div></div>
+          <ul class="results">
+            <li class="state loading">Preparing search index...</li>
+            <li class="state failure">The search index is not available</li>
+          </ul>
+          <a href="index.html" class="title">@wopjs/async-seq - v0.1.0</a>
+        </div>
+        <div class="table-cell" id="tsd-widgets">
+          <a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"
+            ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <use href="assets/icons.svg#icon-menu"></use></svg
+          ></a>
+        </div>
+      </div>
+    </header>
+    <div class="container container-main">
+      <div class="col-content">
+        <div class="tsd-page-title"><h1>@wopjs/async-seq - v0.1.0</h1></div>
+        <div class="tsd-panel tsd-typography">
+          <a id="wopjsasync-seq" class="tsd-anchor"></a>
+          <h1 class="tsd-anchor-link">
+            @wopjs/async-seq<a href="#wopjsasync-seq" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h1>
+          <p>
+            <a href="https://wopjs.github.io/async-seq"
+              ><img src="https://img.shields.io/badge/Docs-read-%23fdf9f5" alt="Docs"
+            /></a>
+            <a href="https://github.com/wopjs/async-seq/actions/workflows/build.yml"
+              ><img src="https://github.com/wopjs/async-seq/actions/workflows/build.yml/badge.svg" alt="Build Status"
+            /></a>
+            <a href="https://www.npmjs.com/package/@wopjs/async-seq"
+              ><img src="https://img.shields.io/npm/v/@wopjs/async-seq.svg" alt="npm-version"
+            /></a>
+            <a href="https://coveralls.io/github/wopjs/async-seq"
+              ><img src="https://img.shields.io/coverallsCoverage/github/wopjs/async-seq" alt="Coverage Status"
+            /></a>
+            <a href="https://bundlephobia.com/package/@wopjs/async-seq"
+              ><img src="https://img.shields.io/bundlephobia/minzip/@wopjs/async-seq" alt="minified-size"
+            /></a>
+          </p>
+          <p>Run async functions one-by-one in a sequence.</p>
+          <a id="install" class="tsd-anchor"></a>
+          <h2 class="tsd-anchor-link">
+            Install<a href="#install" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h2>
+          <pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> @</span><span class="hl-0">wopjs</span><span class="hl-1">/</span><span class="hl-0">async</span><span class="hl-1">-</span><span class="hl-0">seq</span>
+</code><button>Copy</button></pre>
 
-<a href="#install" id="install" style="color: inherit; text-decoration: none;">
-  <h2>Install</h2>
-</a>
-<pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> @</span><span class="hl-0">wopjs</span><span class="hl-1">/</span><span class="hl-0">async</span><span class="hl-1">-</span><span class="hl-0">seq</span>
-</code></pre>
+          <a id="examples" class="tsd-anchor"></a>
+          <h2 class="tsd-anchor-link">
+            Examples<a href="#examples" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h2>
+          <pre><code class="ts"><span class="hl-2">import</span><span class="hl-1"> { </span><span class="hl-0">seq</span><span class="hl-1"> } </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-3">&quot;@wopjs/async-seq&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">s</span><span class="hl-1"> = </span><span class="hl-6">seq</span><span class="hl-1">();</span><br/><br/><span class="hl-7">// add async functions to the sequence and wait for the sequence to finish</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">add</span><span class="hl-1">(</span><br/><span class="hl-1">  () </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ticket</span><span class="hl-1"> = </span><span class="hl-6">setTimeout</span><span class="hl-1">(</span><span class="hl-0">spy</span><span class="hl-1">, </span><span class="hl-8">100</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-6">clearTimeout</span><span class="hl-1">(</span><span class="hl-0">ticket</span><span class="hl-1">);</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-4">async</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">data</span><span class="hl-1"> = </span><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-6">fetch</span><span class="hl-1">(</span><span class="hl-3">&quot;https://example.com&quot;</span><span class="hl-1">).</span><span class="hl-6">then</span><span class="hl-1">(</span><span class="hl-0">r</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-0">r</span><span class="hl-1">.</span><span class="hl-6">json</span><span class="hl-1">());</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-0">data</span><span class="hl-1">);</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">);</span><br/><br/><span class="hl-7">// or manually wait for the sequence to finish</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">wait</span><span class="hl-1">();</span><br/><br/><span class="hl-7">// cancel all tasks</span><br/><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">dispose</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
 
-<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
-  <h2>Examples</h2>
-</a>
-<pre><code class="language-ts"><span class="hl-2">import</span><span class="hl-1"> { </span><span class="hl-0">seq</span><span class="hl-1"> } </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-3">&quot;@wopjs/async-seq&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">s</span><span class="hl-1"> = </span><span class="hl-6">seq</span><span class="hl-1">();</span><br/><br/><span class="hl-7">// add async functions to the sequence and wait for the sequence to finish</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">add</span><span class="hl-1">(</span><br/><span class="hl-1">  () </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ticket</span><span class="hl-1"> = </span><span class="hl-6">setTimeout</span><span class="hl-1">(</span><span class="hl-0">spy</span><span class="hl-1">, </span><span class="hl-8">100</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-6">clearTimeout</span><span class="hl-1">(</span><span class="hl-0">ticket</span><span class="hl-1">);</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-4">async</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">data</span><span class="hl-1"> = </span><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-6">fetch</span><span class="hl-1">(</span><span class="hl-3">&quot;https://example.com&quot;</span><span class="hl-1">).</span><span class="hl-6">then</span><span class="hl-1">(</span><span class="hl-0">r</span><span class="hl-1"> </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-0">r</span><span class="hl-1">.</span><span class="hl-6">json</span><span class="hl-1">());</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-0">data</span><span class="hl-1">);</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">);</span><br/><br/><span class="hl-7">// or manually wait for the sequence to finish</span><br/><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">wait</span><span class="hl-1">();</span><br/><br/><span class="hl-7">// cancel all tasks</span><br/><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">dispose</span><span class="hl-1">();</span>
-</code></pre>
-<p>By default the sequence has unlimited size. You can limit the size of the sequence by passing the <code>window</code> option.
-Together with the <code>dropHead</code> option you can control the behavior of the sequence when it reaches its limit.</p>
-<p>Simulate debounce:</p>
-<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-6">debounce</span><span class="hl-1"> = (</span><span class="hl-6">task</span><span class="hl-1">: () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-9">void</span><span class="hl-1">, </span><span class="hl-0">ms</span><span class="hl-1">: </span><span class="hl-9">number</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">s</span><span class="hl-1"> = </span><span class="hl-6">seq</span><span class="hl-1">({ </span><span class="hl-0">window:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">, </span><span class="hl-0">dropHead:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br/><span class="hl-1">  </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><br/><span class="hl-1">    </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">add</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ticket</span><span class="hl-1"> = </span><span class="hl-6">setTimeout</span><span class="hl-1">(</span><span class="hl-0">task</span><span class="hl-1">, </span><span class="hl-0">ms</span><span class="hl-1">);</span><br/><span class="hl-1">      </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-6">clearTimeout</span><span class="hl-1">(</span><span class="hl-0">ticket</span><span class="hl-1">);</span><br/><span class="hl-1">    });</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">debounced</span><span class="hl-1"> = </span><span class="hl-6">debounce</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-3">&quot;task&quot;</span><span class="hl-1">), </span><span class="hl-8">100</span><span class="hl-1">);</span><br/><br/><span class="hl-2">for</span><span class="hl-1"> (</span><span class="hl-4">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-8">0</span><span class="hl-1">; </span><span class="hl-0">i</span><span class="hl-1"> &lt; </span><span class="hl-8">10</span><span class="hl-1">; </span><span class="hl-0">i</span><span class="hl-1">++) {</span><br/><span class="hl-1">  </span><span class="hl-6">debounced</span><span class="hl-1">();</span><br/><span class="hl-1">}</span>
-</code></pre>
+          <p>
+            By default the sequence has unlimited size. You can limit the size of the sequence by passing the
+            <code>window</code> option. Together with the <code>dropHead</code> option you can control the behavior of
+            the sequence when it reaches its limit.
+          </p>
+          <p>Simulate debounce:</p>
+          <pre><code class="ts"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-6">debounce</span><span class="hl-1"> = (</span><span class="hl-6">task</span><span class="hl-1">: () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-9">void</span><span class="hl-1">, </span><span class="hl-0">ms</span><span class="hl-1">: </span><span class="hl-9">number</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">s</span><span class="hl-1"> = </span><span class="hl-6">seq</span><span class="hl-1">({ </span><span class="hl-0">window:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">, </span><span class="hl-0">dropHead:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br/><span class="hl-1">  </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><br/><span class="hl-1">    </span><span class="hl-0">s</span><span class="hl-1">.</span><span class="hl-6">add</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ticket</span><span class="hl-1"> = </span><span class="hl-6">setTimeout</span><span class="hl-1">(</span><span class="hl-0">task</span><span class="hl-1">, </span><span class="hl-0">ms</span><span class="hl-1">);</span><br/><span class="hl-1">      </span><span class="hl-2">return</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-6">clearTimeout</span><span class="hl-1">(</span><span class="hl-0">ticket</span><span class="hl-1">);</span><br/><span class="hl-1">    });</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">debounced</span><span class="hl-1"> = </span><span class="hl-6">debounce</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-3">&quot;task&quot;</span><span class="hl-1">), </span><span class="hl-8">100</span><span class="hl-1">);</span><br/><br/><span class="hl-2">for</span><span class="hl-1"> (</span><span class="hl-4">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-8">0</span><span class="hl-1">; </span><span class="hl-0">i</span><span class="hl-1"> &lt; </span><span class="hl-8">10</span><span class="hl-1">; </span><span class="hl-0">i</span><span class="hl-1">++) {</span><br/><span class="hl-1">  </span><span class="hl-6">debounced</span><span class="hl-1">();</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
 
-<a href="#license" id="license" style="color: inherit; text-decoration: none;">
-  <h2>License</h2>
-</a>
-<p>MIT @ <a href="https://github.com/wopjs">wopjs</a></p>
-</div></div>
-<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-<div class="tsd-navigation settings">
-<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
-<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
-<div class="tsd-accordion-details">
-<div class="tsd-theme-toggle">
-<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
-<nav class="tsd-navigation primary">
-<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
-<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
-<div class="tsd-accordion-details">
-<ul>
-<li class="current selected"><a href="modules.html">@wopjs/async-<wbr/>seq -<wbr/> v0.1.0</a>
-<ul></ul></li></ul></div></details></nav>
-<nav class="tsd-navigation secondary menu-sticky">
-<ul>
-<li class="tsd-kind-class"><a href="classes/AsyncSeq.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg>Async<wbr/>Seq</a></li>
-<li class="tsd-kind-interface"><a href="interfaces/AsyncSeqFn.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>Async<wbr/>Seq<wbr/>Fn</a></li>
-<li class="tsd-kind-interface"><a href="interfaces/AsyncSeqOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Async<wbr/>Seq<wbr/>Options</a></li>
-<li class="tsd-kind-function"><a href="functions/seq.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>seq</a></li></ul></nav></div></div>
-<div class="overlay"></div><script src="assets/main.js"></script></body></html>
+          <a id="development" class="tsd-anchor"></a>
+          <h2 class="tsd-anchor-link">
+            Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h2>
+          <a id="publish-new-version" class="tsd-anchor"></a>
+          <h3 class="tsd-anchor-link">
+            Publish New Version<a href="#publish-new-version" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h3>
+          <p>
+            You can use <a href="https://docs.npmjs.com/cli/v10/commands/npm-version">npm version</a> to bump version.
+          </p>
+          <pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">version</span><span class="hl-1"> </span><span class="hl-0">patch</span>
+</code><button>Copy</button></pre>
+
+          <p>Push the tag to remote and CI will publish the new version to npm.</p>
+          <pre><code><span class="hl-0">git</span><span class="hl-1"> </span><span class="hl-0">push</span><span class="hl-1"> --</span><span class="hl-0">follow</span><span class="hl-1">-</span><span class="hl-0">tags</span>
+</code><button>Copy</button></pre>
+
+          <a id="ci-auto-publish" class="tsd-anchor"></a>
+          <h3 class="tsd-anchor-link">
+            CI Auto Publish<a href="#ci-auto-publish" aria-label="Permalink" class="tsd-anchor-icon"
+              ><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg
+            ></a>
+          </h3>
+          <p>
+            If you want to publish the package in CI, you need to set the <code>NPM_TOKEN</code> secrets
+            <a
+              href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository"
+              >in GitHub repository settings</a
+            >. See how to
+            <a href="https://docs.npmjs.com/creating-and-viewing-access-tokens">create a NPM access token</a>.
+          </p>
+        </div>
+      </div>
+      <div class="col-sidebar">
+        <div class="page-menu">
+          <div class="tsd-navigation settings">
+            <details class="tsd-accordion">
+              <summary class="tsd-accordion-summary">
+                <h3>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <use href="assets/icons.svg#icon-chevronDown"></use></svg
+                  >Settings
+                </h3>
+              </summary>
+              <div class="tsd-accordion-details">
+                <div class="tsd-theme-toggle">
+                  <label class="settings-label" for="tsd-theme">Theme</label
+                  ><select id="tsd-theme">
+                    <option value="os">OS</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+          </div>
+          <details open class="tsd-accordion tsd-page-navigation">
+            <summary class="tsd-accordion-summary">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <use href="assets/icons.svg#icon-chevronDown"></use></svg
+                >On This Page
+              </h3>
+            </summary>
+            <div class="tsd-accordion-details">
+              <a href="#wopjsasync-seq"
+                ><span>@wopjs/async-<wbr />seq</span></a
+              >
+              <ul>
+                <li>
+                  <a href="#install"><span>Install</span></a>
+                </li>
+                <li>
+                  <a href="#examples"><span>Examples</span></a>
+                </li>
+                <li>
+                  <a href="#development"><span>Development</span></a>
+                </li>
+                <li>
+                  <ul>
+                    <li>
+                      <a href="#publish-new-version"
+                        ><span>Publish <wbr />New <wbr />Version</span></a
+                      >
+                    </li>
+                    <li>
+                      <a href="#ci-auto-publish"
+                        ><span>CI <wbr />Auto <wbr />Publish</span></a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="site-menu">
+          <nav class="tsd-navigation">
+            <a href="modules.html">@wopjs/async-seq - v0.1.0</a>
+            <ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+              <li>Loading...</li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+    <div class="overlay"></div>
+  </body>
+</html>
