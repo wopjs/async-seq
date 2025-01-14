@@ -98,7 +98,7 @@ export class AsyncSeq {
     let fn: AsyncSeqFn | undefined;
     while ((fn = this.#fns[0])) {
       if (this.#disposer) {
-        tryCall(this.#disposer);
+        await tryCall(this.#disposer);
         this.#disposer = null;
       }
       const disposer = await tryCall(fn);
