@@ -1,7 +1,7 @@
 import { abortable } from "@wopjs/disposable";
 import { expect, it, vi } from "vitest";
 
-import { seq } from "../src/async-seq";
+import { seq } from "../src";
 
 it("should run tasks in sequence", async () => {
   const s = seq();
@@ -10,7 +10,7 @@ it("should run tasks in sequence", async () => {
     .map(() => vi.fn());
   const spies = disposers.map(disposer => vi.fn(async () => disposer));
 
-  const p = s.add(...spies);
+  const p = s.schedule(...spies);
   expect(s.size).toBe(spies.length);
   expect(s.full).toBe(false);
   expect(s.running).toBe(true);
@@ -40,7 +40,7 @@ it("should drop item from the tail if the sequence is full", async () => {
     .map(() => vi.fn());
   const spies = disposers.map(disposer => vi.fn(async () => disposer));
 
-  const p = s.add(...spies);
+  const p = s.schedule(...spies);
   expect(s.size).toBe(window);
   expect(s.full).toBe(true);
   expect(s.running).toBe(true);
@@ -78,14 +78,14 @@ it("should drop item from the tail when adding to a sequence", async () => {
   const spies1 = Array.from({ length: 3 }).map((_, i) =>
     vi.fn(async () => {
       if (i === 1) {
-        s.add(...spies2);
+        s.schedule(...spies2);
       }
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers1[i];
     }),
   );
 
-  const p = s.add(...spies1);
+  const p = s.schedule(...spies1);
   expect(s.size).toBe(window);
   expect(s.full).toBe(true);
   expect(s.running).toBe(true);
@@ -118,7 +118,7 @@ it("should wait for the sequence to finish", async () => {
   const spy = vi.fn(async () => {
     await new Promise(resolve => setTimeout(resolve, 100));
   });
-  s.add(spy);
+  s.schedule(spy);
   expect(s.running).toBe(true);
   await s.wait();
   expect(s.running).toBe(false);
@@ -134,7 +134,7 @@ it("should drop item from the head if the sequence is full", async () => {
     .fill(0)
     .map(() => vi.fn());
   const spies = disposers.map(disposer => vi.fn(async () => disposer));
-  await s.add(...spies);
+  await s.schedule(...spies);
   for (const [i, spy] of spies.entries()) {
     expect(spy).toBeCalledTimes(i >= spies.length - window ? 1 : 0);
   }
@@ -161,14 +161,14 @@ it("should drop item from the head when adding to a sequence", async () => {
   const spies1 = Array.from({ length: 3 }).map((_, i) =>
     vi.fn(async () => {
       if (i === 1) {
-        s.add(...spies2);
+        s.schedule(...spies2);
       }
       await new Promise(resolve => setTimeout(resolve, 100));
       return disposers1[i];
     }),
   );
 
-  const p = s.add(...spies1);
+  const p = s.schedule(...spies1);
   expect(s.size).toBe(window);
   expect(s.full).toBe(true);
   expect(s.running).toBe(true);
@@ -201,7 +201,7 @@ it("should catch error in tasks", async () => {
   const error = new Error();
 
   const s = seq();
-  await s.add(() => {
+  await s.schedule(() => {
     throw error;
   });
 
@@ -215,7 +215,7 @@ it("should simulate debounce", async () => {
   const s = seq({ dropHead: true, window: 1 });
   const spy = vi.fn();
   for (let i = 0; i < 10; i++) {
-    await s.add(() => {
+    await s.schedule(() => {
       const ticket = setTimeout(spy, 100);
       return () => clearTimeout(ticket);
     });
@@ -231,7 +231,7 @@ it("should work with abortable", async () => {
   const s = seq();
   const spy = vi.fn();
   const disposer = abortable(spy);
-  s.add(() => abortable(spy));
+  s.schedule(() => abortable(spy));
 
   expect(spy).toHaveBeenCalledTimes(0);
 

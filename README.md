@@ -22,7 +22,7 @@ import { seq } from "@wopjs/async-seq";
 const s = seq();
 
 // add async functions to the sequence and wait for the sequence to finish
-await s.add(
+await s.schedule(
   () => {
     const ticket = setTimeout(spy, 100);
     return () => clearTimeout(ticket);
@@ -49,7 +49,7 @@ Simulate debounce:
 const debounce = (task: () => void, ms: number) => {
   const s = seq({ window: 1, dropHead: true });
   return () =>
-    s.add(() => {
+    s.schedule(() => {
       const ticket = setTimeout(task, ms);
       return () => clearTimeout(ticket);
     });

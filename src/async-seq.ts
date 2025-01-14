@@ -58,29 +58,33 @@ export class AsyncSeq {
   }
 
   /**
-   * Add task executors to the sequence.
-   * @param fns Task executors. Optionally returns a disposer function that cleans up side effects.
-   * @returns Promise that resolves when all tasks in the sequence are executed.
-   */
-  public async add(...fns: AsyncSeqFn[]): Promise<void> {
-    this.#fns.push(...fns);
-    const diff = this.#fns.length - this.#window;
-    if (diff > 0) {
-      this.#fns.splice(this.#dropHead ? 0 : this.#window, diff);
-    }
-    await (this.#pRunning ||= this.#run());
-  }
-
-  /**
    * Dispose the sequence.
    */
   public async dispose(): Promise<void> {
+    await this.flush();
+  }
+
+  public async flush(): Promise<void> {
     this.#fns.length = 0;
     await this.#pRunning;
     if (this.#disposer) {
       await tryCall(this.#disposer);
       this.#disposer = null;
     }
+  }
+
+  /**
+   * Add task executors to the sequence.
+   * @param fns Task executors. Optionally returns a disposer function that cleans up side effects.
+   * @returns Promise that resolves when all tasks in the sequence are executed.
+   */
+  public async schedule(...fns: AsyncSeqFn[]): Promise<void> {
+    this.#fns.push(...fns);
+    const diff = this.#fns.length - this.#window;
+    if (diff > 0) {
+      this.#fns.splice(this.#dropHead ? 0 : this.#window, diff);
+    }
+    await (this.#pRunning ||= this.#run());
   }
 
   /**
