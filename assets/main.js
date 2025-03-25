@@ -377,10 +377,10 @@ window.translations = {
           w = /^(.+?)(ss|i)es$/,
           m = /^(.+?)([^s])s$/,
           g = /^(.+?)eed$/,
-          S = /^(.+?)(ed|ing)$/,
+          T = /^(.+?)(ed|ing)$/,
           L = /.$/,
           C = /(at|bl|iz)$/,
-          O = new RegExp("([^aeiouylsz])\\1$"),
+          M = new RegExp("([^aeiouylsz])\\1$"),
           j = new RegExp("^" + s + i + "[^aeiouwxy]$"),
           N = /^(.+?[^aeiou])y$/,
           q =
@@ -392,16 +392,16 @@ window.translations = {
           U = /ll$/,
           J = new RegExp("^" + s + i + "[^aeiouwxy]$"),
           V = function (u) {
-            var y, P, T, h, E, Q, A;
+            var y, P, k, h, E, Q, H;
             if (u.length < 3) return u;
             if (
-              ((T = u.substr(0, 1)),
-              T == "y" && (u = T.toUpperCase() + u.substr(1)),
+              ((k = u.substr(0, 1)),
+              k == "y" && (u = k.toUpperCase() + u.substr(1)),
               (h = w),
               (E = m),
               h.test(u) ? (u = u.replace(h, "$1$2")) : E.test(u) && (u = u.replace(E, "$1$2")),
               (h = g),
-              (E = S),
+              (E = T),
               h.test(u))
             ) {
               var b = h.exec(u);
@@ -413,13 +413,13 @@ window.translations = {
                 E.test(y) &&
                   ((u = y),
                   (E = C),
-                  (Q = O),
-                  (A = j),
+                  (Q = M),
+                  (H = j),
                   E.test(u)
                     ? (u = u + "e")
                     : Q.test(u)
                       ? ((h = L), (u = u.replace(h, "")))
-                      : A.test(u) && (u = u + "e"));
+                      : H.test(u) && (u = u + "e"));
             }
             if (((h = N), h.test(u))) {
               var b = h.exec(u);
@@ -448,12 +448,12 @@ window.translations = {
               (h = U),
               (E = p),
               h.test(u) && E.test(u) && ((h = L), (u = u.replace(h, ""))),
-              T == "y" && (u = T.toLowerCase() + u.substr(1)),
+              k == "y" && (u = k.toLowerCase() + u.substr(1)),
               u
             );
           };
-        return function (M) {
-          return M.update(V);
+        return function (A) {
+          return A.update(V);
         };
       })()),
         t.Pipeline.registerFunction(t.stemmer, "stemmer");
@@ -786,8 +786,8 @@ window.translations = {
                 }
                 break;
               }
-              for (var S = 0; S < w.length; S++)
-                for (var L = w[S], C = this.invertedIndex[L], O = C._index, m = 0; m < l.fields.length; m++) {
+              for (var T = 0; T < w.length; T++)
+                for (var L = w[T], C = this.invertedIndex[L], M = C._index, m = 0; m < l.fields.length; m++) {
                   var g = l.fields[m],
                     j = C[g],
                     N = Object.keys(j),
@@ -802,7 +802,7 @@ window.translations = {
                     continue;
                   }
                   if (
-                    (i[g].upsert(O, l.boost, function (ze, Ue) {
+                    (i[g].upsert(M, l.boost, function (ze, Ue) {
                       return ze + Ue;
                     }),
                     !s[q])
@@ -824,9 +824,9 @@ window.translations = {
                 o[g] = o[g].intersect(f);
               }
           }
-          for (var V = t.Set.complete, M = t.Set.empty, c = 0; c < this.fields.length; c++) {
+          for (var V = t.Set.complete, A = t.Set.empty, c = 0; c < this.fields.length; c++) {
             var g = this.fields[c];
-            o[g] && (V = V.intersect(o[g])), a[g] && (M = M.union(a[g]));
+            o[g] && (V = V.intersect(o[g])), a[g] && (A = A.union(a[g]));
           }
           var u = Object.keys(r),
             y = [],
@@ -835,20 +835,20 @@ window.translations = {
             u = Object.keys(this.fieldVectors);
             for (var c = 0; c < u.length; c++) {
               var _ = u[c],
-                T = t.FieldRef.fromString(_);
+                k = t.FieldRef.fromString(_);
               r[_] = new t.MatchData();
             }
           }
           for (var c = 0; c < u.length; c++) {
-            var T = t.FieldRef.fromString(u[c]),
-              h = T.docRef;
-            if (V.contains(h) && !M.contains(h)) {
-              var E = this.fieldVectors[T],
-                Q = i[T.fieldName].similarity(E),
-                A;
-              if ((A = P[h]) !== void 0) (A.score += Q), A.matchData.combine(r[T]);
+            var k = t.FieldRef.fromString(u[c]),
+              h = k.docRef;
+            if (V.contains(h) && !A.contains(h)) {
+              var E = this.fieldVectors[k],
+                Q = i[k.fieldName].similarity(E),
+                H;
+              if ((H = P[h]) !== void 0) (H.score += Q), H.matchData.combine(r[k]);
               else {
-                var b = { ref: h, score: Q, matchData: r[T] };
+                var b = { ref: h, score: Q, matchData: r[k] };
                 (P[h] = b), y.push(b);
               }
             }
@@ -964,10 +964,10 @@ window.translations = {
               }
               this.invertedIndex[x][o][r] == null && (this.invertedIndex[x][o][r] = Object.create(null));
               for (var g = 0; g < this.metadataWhitelist.length; g++) {
-                var S = this.metadataWhitelist[g],
-                  L = x.metadata[S];
-                this.invertedIndex[x][o][r][S] == null && (this.invertedIndex[x][o][r][S] = []),
-                  this.invertedIndex[x][o][r][S].push(L);
+                var T = this.metadataWhitelist[g],
+                  L = x.metadata[T];
+                this.invertedIndex[x][o][r][T] == null && (this.invertedIndex[x][o][r][T] = []),
+                  this.invertedIndex[x][o][r][T].push(L);
               }
             }
           }
@@ -1006,18 +1006,18 @@ window.translations = {
             ) {
               var m = f[w],
                 g = d[m],
-                S = this.invertedIndex[m]._index,
+                T = this.invertedIndex[m]._index,
                 L,
                 C,
-                O;
+                M;
               i[m] === void 0 ? ((L = t.idf(this.invertedIndex[m], this.documentCount)), (i[m] = L)) : (L = i[m]),
                 (C =
                   (L * ((this._k1 + 1) * g)) /
                   (this._k1 * (1 - this._b + this._b * (c / this.averageFieldLength[a])) + g)),
                 (C *= v),
                 (C *= x),
-                (O = Math.round(C * 1e3) / 1e3),
-                l.insert(S, O);
+                (M = Math.round(C * 1e3) / 1e3),
+                l.insert(T, M);
             }
             e[o] = l;
           }
@@ -1407,8 +1407,8 @@ window.translations = {
         });
     })();
   });
-  var H,
-    oe = {
+  var O,
+    G = {
       getItem() {
         return null;
       },
@@ -1416,26 +1416,32 @@ window.translations = {
     },
     K;
   try {
-    (K = localStorage), (H = K);
+    (K = localStorage), (O = K);
   } catch {
-    (K = oe), (H = oe);
+    (K = G), (O = G);
   }
-  var k = {
-    getItem: t => H.getItem(t),
-    setItem: (t, e) => H.setItem(t, e),
+  var S = {
+    getItem: t => O.getItem(t),
+    setItem: (t, e) => O.setItem(t, e),
+    disableWritingLocalStorage() {
+      O = G;
+    },
     disable() {
-      localStorage.clear(), (H = oe);
+      localStorage.clear(), (O = G);
     },
     enable() {
-      H = K;
+      O = K;
     },
   };
   window.TypeDoc ||= {
+    disableWritingLocalStorage() {
+      S.disableWritingLocalStorage();
+    },
     disableLocalStorage: () => {
-      k.disable();
+      S.disable();
     },
     enableLocalStorage: () => {
-      k.enable();
+      S.enable();
     },
   };
   window.translations ||= {
@@ -1473,10 +1479,10 @@ window.translations = {
     kind_8388608: "Document",
   };
   var pe = [];
-  function X(t, e) {
+  function Y(t, e) {
     pe.push({ selector: e, constructor: t });
   }
-  var G = class {
+  var X = class {
     alwaysVisibleMember = null;
     constructor() {
       this.createComponents(document.body),
@@ -1592,7 +1598,7 @@ window.translations = {
       i = await new Response(r).text();
     return JSON.parse(i);
   }
-  var Y = "closing",
+  var Z = "closing",
     ae = "tsd-overlay";
   function rt() {
     let t = Math.abs(window.innerWidth - document.documentElement.clientWidth);
@@ -1603,7 +1609,7 @@ window.translations = {
   }
   function xe(t, e) {
     t.addEventListener("animationend", () => {
-      t.classList.contains(Y) && (t.classList.remove(Y), document.getElementById(ae)?.remove(), t.close(), it());
+      t.classList.contains(Z) && (t.classList.remove(Z), document.getElementById(ae)?.remove(), t.close(), it());
     }),
       t.addEventListener("cancel", n => {
         n.preventDefault(), ve(t);
@@ -1624,7 +1630,7 @@ window.translations = {
   }
   function ve(t) {
     if (!t.open) return;
-    document.getElementById(ae)?.classList.add(Y), t.classList.add(Y);
+    document.getElementById(ae)?.classList.add(Z), t.classList.add(Z);
   }
   var I = class {
     el;
@@ -1640,7 +1646,7 @@ window.translations = {
     for (let e of t.split(/\s+/)) if (le.hasOwnProperty(e) && !le[e]) return !0;
     return !1;
   }
-  var Z = class extends I {
+  var ee = class extends I {
     key;
     value;
     constructor(e) {
@@ -1656,11 +1662,11 @@ window.translations = {
         this.app.updateIndexVisibility();
     }
     fromLocalStorage() {
-      let e = k.getItem(this.key);
+      let e = S.getItem(this.key);
       return e ? e === "true" : this.el.checked;
     }
     setLocalStorage(e) {
-      k.setItem(this.key, e.toString()), (this.value = e), this.handleValueChange();
+      S.setItem(this.key, e.toString()), (this.value = e), this.handleValueChange();
     }
     handleValueChange() {
       (this.el.checked = this.value),
@@ -1772,7 +1778,7 @@ window.translations = {
       });
     } else s = [];
     if (s.length === 0 && i) {
-      let a = window.translations.search_no_results_found_for_0.replace("{0}", ` "<strong>${ee(i)}</strong>" `);
+      let a = window.translations.search_no_results_found_for_0.replace("{0}", ` "<strong>${te(i)}</strong>" `);
       Pe(n, a);
       return;
     }
@@ -1837,13 +1843,13 @@ window.translations = {
       s = 0,
       o = n.indexOf(r);
     for (; o != -1; )
-      i.push(ee(t.substring(s, o)), `<mark>${ee(t.substring(o, o + r.length))}</mark>`),
+      i.push(te(t.substring(s, o)), `<mark>${te(t.substring(o, o + r.length))}</mark>`),
         (s = o + r.length),
         (o = n.indexOf(r, s));
-    return i.push(ee(t.substring(s))), i.join("");
+    return i.push(te(t.substring(s))), i.join("");
   }
   var at = { "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#039;", '"': "&quot;" };
-  function ee(t) {
+  function te(t) {
     return t.replace(/[&<>"'"]/g, e => at[e]);
   }
   function Pe(t, e) {
@@ -1861,7 +1867,7 @@ window.translations = {
   var D = "mousedown",
     Oe = "mousemove",
     $ = "mouseup",
-    te = { x: 0, y: 0 },
+    ne = { x: 0, y: 0 },
     Qe = !1,
     ce = !1,
     ut = !1,
@@ -1874,13 +1880,13 @@ window.translations = {
   document.addEventListener(D, t => {
     (ce = !0), (F = !1);
     let e = D == "touchstart" ? t.targetTouches[0] : t;
-    (te.y = e.pageY || 0), (te.x = e.pageX || 0);
+    (ne.y = e.pageY || 0), (ne.x = e.pageX || 0);
   });
   document.addEventListener(Oe, t => {
     if (ce && !F) {
       let e = D == "touchstart" ? t.targetTouches[0] : t,
-        n = te.x - (e.pageX || 0),
-        r = te.y - (e.pageY || 0);
+        n = ne.x - (e.pageX || 0),
+        r = ne.y - (e.pageY || 0);
       F = Math.sqrt(n * n + r * r) > 10;
     }
   });
@@ -1890,7 +1896,7 @@ window.translations = {
   document.addEventListener("click", t => {
     Qe && (t.preventDefault(), t.stopImmediatePropagation(), (Qe = !1));
   });
-  var ne = class extends I {
+  var re = class extends I {
     active;
     className;
     constructor(e) {
@@ -1946,10 +1952,10 @@ window.translations = {
       }
       toggle(e) {
         for (let n of this.accordions) n.open = e;
-        k.setItem(this.key, e.toString());
+        S.setItem(this.key, e.toString());
       }
     },
-    re = class extends I {
+    ie = class extends I {
       constructor(e) {
         super(e);
         let n = this.el.querySelector("summary"),
@@ -1962,7 +1968,7 @@ window.translations = {
           s;
         if (ue.has(i)) s = ue.get(i);
         else {
-          let o = k.getItem(i),
+          let o = S.getItem(i),
             a = o ? o === "true" : this.el.open;
           (s = new de(i, a)), ue.set(i, s);
         }
@@ -1970,17 +1976,17 @@ window.translations = {
       }
     };
   function He(t) {
-    let e = k.getItem("tsd-theme") || "os";
+    let e = S.getItem("tsd-theme") || "os";
     (t.value = e),
       Ae(e),
       t.addEventListener("change", () => {
-        k.setItem("tsd-theme", t.value), Ae(t.value);
+        S.setItem("tsd-theme", t.value), Ae(t.value);
       });
   }
   function Ae(t) {
     document.documentElement.dataset.theme = t;
   }
-  var ie;
+  var se;
   function Fe() {
     let t = document.getElementById("tsd-nav-script");
     t && (t.addEventListener("load", Re), Re());
@@ -1989,7 +1995,7 @@ window.translations = {
     let t = document.getElementById("tsd-nav-container");
     if (!t || !window.navigationData) return;
     let e = await R(window.navigationData);
-    (ie = document.documentElement.dataset.base), ie.endsWith("/") || (ie += "/"), (t.innerHTML = "");
+    (se = document.documentElement.dataset.base), se.endsWith("/") || (se += "/"), (t.innerHTML = "");
     for (let n of e) Ne(n, t, []);
     window.app.createComponents(t), window.app.showPage(), window.app.ensureActivePageVisible();
   }
@@ -2016,7 +2022,7 @@ window.translations = {
     if (t.path) {
       let r = e.appendChild(document.createElement("a"));
       if (
-        ((r.href = ie + t.path),
+        ((r.href = se + t.path),
         n && (r.className = n),
         location.pathname === r.pathname &&
           !r.href.includes("#") &&
@@ -2034,8 +2040,8 @@ window.translations = {
         (r.appendChild(document.createElement("span")).textContent = t.text);
     }
   }
-  var se = document.documentElement.dataset.base;
-  se.endsWith("/") || (se += "/");
+  var oe = document.documentElement.dataset.base;
+  oe.endsWith("/") || (oe += "/");
   function Ve() {
     document.querySelector(".tsd-full-hierarchy") ? dt() : document.querySelector(".tsd-hierarchy") && ht();
   }
@@ -2116,12 +2122,12 @@ window.translations = {
         let c = t.reflections[a],
           l = s.appendChild(document.createElement("a"));
         (l.textContent = c.name),
-          (l.href = se + c.url),
+          (l.href = oe + c.url),
           (l.className = c.class + " tsd-signature-type"),
           s.append(document.createTextNode("."));
       }
       let o = s.appendChild(document.createElement("a"));
-      (o.textContent = t.reflections[e].name), (o.href = se + i.url), (o.className = i.class + " tsd-signature-type");
+      (o.textContent = t.reflections[e].name), (o.href = oe + i.url), (o.className = i.class + " tsd-signature-type");
     }
     if (i.children) {
       let o = s.appendChild(document.createElement("ul"));
@@ -2160,12 +2166,12 @@ window.translations = {
       t
     );
   }
-  X(ne, "a[data-toggle]");
-  X(re, ".tsd-accordion");
-  X(Z, ".tsd-filter-item input[type=checkbox]");
+  Y(re, "a[data-toggle]");
+  Y(ie, ".tsd-accordion");
+  Y(ee, ".tsd-filter-item input[type=checkbox]");
   var je = document.getElementById("tsd-theme");
   je && He(je);
-  var gt = new G();
+  var gt = new X();
   Object.defineProperty(window, "app", { value: gt });
   _e();
   Fe();
