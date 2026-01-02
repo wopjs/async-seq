@@ -21,7 +21,7 @@
     "test:coverage": "vitest --coverage --coverage.include=src/**",
     "test:ci": "vitest --coverage --coverage.reporter=lcov --coverage.include=src/**",
     "build": "tsup",
-    "build:min": "MINIFY=true tsup && node scripts/gzip.mjs",
+    "build:min": "MINIFY=true tsup --env.NODE_ENV production && echo '' && gzip-size dist/index.mjs dist/index.js",
     "release": "commit-and-tag-version"
   },
   "keywords": [
@@ -44,24 +44,17 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
     "@types/node": "^25.0.3",
     "@vitest/coverage-v8": "^4.0.6",
     "@wopjs/disposable": "^0.1.12",
+    "@wopjs/eslint-config": "^0.1.54",
+    "@wopjs/gzip-size": "^0.1.5",
     "commit-and-tag-version": "^12.5.0",
     "eslint": "^9.17.0",
-    "eslint-config-flat-gitignore": "^2.0.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-import-x": "^4.6.1",
-    "eslint-plugin-perfectionist": "^5.2.0",
-    "gzip-size": "^7.0.0",
     "prettier": "^3.4.2",
-    "pretty-bytes": "^7.0.0",
     "tsup": "^8.3.5",
     "typedoc": "^0.28.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.19.1",
-    "vitest": "^4.0.6",
-    "yoctocolors": "^2.1.1"
+    "vitest": "^4.0.6"
   }
 }
